@@ -1,18 +1,14 @@
-import axios from 'axios';
+
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
 function App() {
   const [advice,setAdvice]=useState('');
 
-  const fetchdata =()=>{
-    axios.get('https://api.adviceslip.com/advice')
-    .then((response)=>{
-      setAdvice(response.data.slip.advice);
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
+  const fetchdata =async()=>{
+    const response=await fetch('https://api.adviceslip.com/advice');
+    const data=await response.json();
+    setAdvice(data.slip.advice);
   }
   useEffect(()=>{
     fetchdata();
